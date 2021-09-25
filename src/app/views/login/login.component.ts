@@ -46,15 +46,15 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.loginForm.valid) {
+        if (!this.loginForm.valid) {
             return;
         }
 
         this.loading = true;
-        this.account.getUser(this.f.username.value, this.f.password.value)
+        this.account.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
-                data => {
+                (data) => {
                     sessionStorage.setItem('name', data.user.username);
                     sessionStorage.setItem('success', data.success);
                     this.router.navigate([this.returnUrl]);
