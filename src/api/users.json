@@ -1,6 +1,6 @@
 
 {
-  "success": false,
+  "success": true,
   "token": "123123123123",
   "user": {
     "username": "email@email.test"
