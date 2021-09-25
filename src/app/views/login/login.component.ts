@@ -7,18 +7,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountsModalComponent } from 'src/app/modals/accounts-modal/accounts-modal.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-
-    // emailFound = false;
-    // passwordFound = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -28,13 +25,9 @@ export class LoginComponent implements OnInit {
         private modalService: NgbModal
     ) {
         // redirect to home if already logged in
-
-        if (this.submitted && Boolean(sessionStorage.getItem('success'))) {
+        if (this.submitted && JSON.parse(sessionStorage.getItem('success'))) {
             this.router.navigate(['/account']);
         }
-        // else if (this.submitted){
-
-        // }
     }
 
     ngOnInit() {
@@ -44,51 +37,40 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/home'
-          this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-
-          
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
     }
 
     // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+    get f() { return this.loginForm.controls; }
 
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
         if (!this.loginForm.valid) {
-          // this.hasError(this.f.email.errors[0], "This Field is Incorect!");
             return;
         }
 
         this.loading = true;
-        this.account.login( this.f.username?.value , this.f.password?.value)
+        this.account.login(this.f.username?.value, this.f.password?.value)
             .pipe(first())
             .subscribe(
                 data => {
-
-                  // if(this.f.username.value ){
-                    
-                  // }
-                    console.log(data);
                     sessionStorage.setItem('name', data.user.username);
                     sessionStorage.setItem('success', data.success);
-
-                    if(data.success && data.profiles.length > 1) {
-                       const modalRef = this.modalService.open(AccountsModalComponent);
-                       modalRef.componentInstance.profiles = data.profiles;
+                    if (data.success && data.profiles.length > 1) {
+                        const modalRef = this.modalService.open(AccountsModalComponent);
+                        modalRef.componentInstance.profiles = data.profiles;
                     }
                     else if (data.success && data.profiles.length == 1) {
-                      this.router.navigate(['/accounts']);
+                        this.router.navigate(['/accounts']);
                     } else {
-                      this.router.navigate([this.returnUrl]);
+                        this.router.navigate([this.returnUrl]);
                     }
-                    
                 },
                 (error: any) => {
-                      console.error(error)
-                  
+                    console.error(error)
                 },
-                () => {this.loading = false});
+                () => { this.loading = false });
     }
 }

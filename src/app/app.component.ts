@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
 
-    this.success = Boolean(sessionStorage.getItem('success'));
+    this.success = JSON.parse(sessionStorage.getItem('success'));
   }
 }

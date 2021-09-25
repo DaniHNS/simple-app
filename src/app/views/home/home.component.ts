@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   name: string;
   success: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.setUserLogedData();
@@ -20,14 +20,14 @@ export class HomeComponent implements OnInit {
 
   setUserLogedData() {
     this.name = sessionStorage.getItem('name');
-    this.success = Boolean(sessionStorage.getItem('success'));
+    this.success = JSON.parse(sessionStorage.getItem('success'));
   }
   removeUserLogedData() {
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('success');
   }
 
-  logOut(){
+  logOut() {
     this.removeUserLogedData();
     this.router.navigate(['/']);
   }
