@@ -3,14 +3,14 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'account-user',
   template: `
     <h1>User</h1>
-    <p>{{userName}}</p>
+    <p>{{email}}</p>
   `
 })
 export class AccountUserComponent implements OnInit {
-  @Input() userName;
+  email: string;
   constructor() { }
   ngOnInit(): void {
-
+    this.email = sessionStorage.getItem('name');
   }
 
 }
