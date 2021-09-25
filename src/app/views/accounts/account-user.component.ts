@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
-    selector: 'account-user',
-    template: `
+  selector: 'account-user',
+  template: `
     <h1>User</h1>
-    <p>User details</p>
+    <p>{{userName}}</p>
   `
-  })
+})
 export class AccountUserComponent implements OnInit {
+  @Input() userName;
+  constructor() { }
+  ngOnInit(): void {
 
-    constructor() { }
-  
-    ngOnInit(): void {
-    }
-  
   }
+
+}

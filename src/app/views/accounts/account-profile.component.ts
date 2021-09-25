@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
     selector: 'account-profile',
     template: `
-    <h1>Profile</h1>
-    <p>Profile details</p>
+    <p>{{email}}</p>
   `
   })
 
   export class AccountProfileComponent implements OnInit {
-
+    @Input() email;
     constructor() { }
-  
     ngOnInit(): void {
-    }
   
+    }
   }

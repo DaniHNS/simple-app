@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./accounts.component.scss']
 })
 export class AccountsComponent implements OnInit {
-  name: string;
+  email: string;
   userName: string;
   constructor() { }
 
   ngOnInit(): void {
-    this.name = sessionStorage.getItem('name');
+    this.email = sessionStorage.getItem('name');
     this.userName = sessionStorage.getItem('userName');
   }
 
