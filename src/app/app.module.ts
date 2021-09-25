@@ -5,18 +5,22 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from './services/account.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountsModalComponent } from './modals/accounts-modal/accounts-modal.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccountsModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [AccountService],
   bootstrap: [AppComponent]

@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h4 class="modal-title">Please select user</h4>
+    <div  *ngFor="let profile of profiles; index as i;">
+     <div>
+        <button type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/accounts">{{profile.name}}</button>
+     </div>
+   </div>  
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccountsModalComponent } from 'src/app/modals/accounts-modal/accounts-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -15,18 +17,24 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
 
+    // emailFound = false;
+    // passwordFound = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private account: AccountService,
-        // private alertService: AlertService
+        private modalService: NgbModal
     ) {
         // redirect to home if already logged in
 
-        // if (this.accountService.userValue) {
-        //     this.router.navigate(['/']);
-       // }
+        if (this.submitted && Boolean(sessionStorage.getItem('success'))) {
+            this.router.navigate(['/account']);
+        }
+        // else if (this.submitted){
+
+        // }
     }
 
     ngOnInit() {
@@ -35,30 +43,47 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
-         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        // get return url from route parameters or default to '/home'
+          this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+
+          
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+  get f() { return this.loginForm.controls; }
 
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
-        // if (!this.loginForm.valid) {
-        //     return;
-        // }
+        if (!this.loginForm.valid) {
+          // this.hasError(this.f.email.errors[0], "This Field is Incorect!");
+            return;
+        }
 
         this.loading = true;
         this.account.login( this.f.username?.value , this.f.password?.value)
             .pipe(first())
             .subscribe(
                 data => {
+
+                  // if(this.f.username.value ){
+                    
+                  // }
                     console.log(data);
                     sessionStorage.setItem('name', data.user.username);
                     sessionStorage.setItem('success', data.success);
-                    this.router.navigate([this.returnUrl]);
+
+                    if(data.success && data.profiles.length > 1) {
+                       const modalRef = this.modalService.open(AccountsModalComponent);
+                       modalRef.componentInstance.profiles = data.profiles;
+                    }
+                    else if (data.success && data.profiles.length == 1) {
+                      this.router.navigate(['/accounts']);
+                    } else {
+                      this.router.navigate([this.returnUrl]);
+                    }
+                    
                 },
                 (error: any) => {
                       console.error(error)
