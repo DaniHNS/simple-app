@@ -8,12 +8,18 @@ import { AccountService } from '../../_services/account.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-  user: User;
+  
+  user: any;
 
   constructor(private accountService: AccountService) {
-     // this.user.loggedIn = this.accountService.userValue;
+      this.user = this.accountService.userValue;
+      console.log('logged in :', this.user)
   }
+  
 
+  logedToggle() {
+    this.accountService.userValue = !this.accountService.userValue;
+    this.user = this.accountService.userValue;
+  }
 }
 

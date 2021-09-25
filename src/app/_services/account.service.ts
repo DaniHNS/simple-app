@@ -10,17 +10,12 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AccountService {
 
- userValue = false;
+  public userValue = false;
 
   constructor(private http: HttpClient) {
     this.http = http;
   }
 
-  getUsers(elem): Observable<any> {
-    if (elem) {
-    //   return this.http.get('https://api.jikan.moe/v3/search/anime?q=' + elem);
-    return this.http.get(`api/users`);
-    // .map(response => response.json().data);
-    }
-  }
+
+  
 }

@@ -1,3 +1,10 @@
-<p>It seems you're Logged </p>
+<p>Welcome it seems you're Logged 
+    <span *ngIf="!user.loggedIn"> IN </span>
+    <span *ngIf="user.loggedIn"> Out </span>
+</p>
 
 <!-- <span *ngIf="user.loggedIn">INside</span> -->
+
+<button *ngIf="!user.loggedIn" routerLinkActive="active" routerLink="/login">Please go to Login</button>
+
+<button *ngIf="user.loggedIn" routerLinkActive="active" routerLink="/accounts">Welcome Back </button>
