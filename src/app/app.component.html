@@ -1,16 +1,15 @@
-<nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-  <div class="container">
-    <span *ngIf="!success">
-      <a routerLinkActive="active" routerLink="/login">Login</a>
-    </span>
-    <span *ngIf="success">
-      | <a routerLinkActive="active" routerLink="/home">Home</a>
-    </span>
-    <span *ngIf="success">
-      | <a routerLinkActive="active" routerLink="/accounts">Accounts</a>
-    </span>
-    
-  </div>
-</nav>
+
+  <ul class="nav">
+    <li class="nav-item" *ngIf="!success">
+      <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a>
+    </li>
+    <li class="nav-item" *ngIf="success">
+       <a class="nav-link" routerLinkActive="active" routerLink="/home">Home</a>
+    </li>
+    <li class="nav-item" *ngIf="success">
+       <a class="nav-link" routerLinkActive="active" routerLink="/accounts">Accounts</a>
+    </li>
+  </ul>
+
 
 <router-outlet></router-outlet>
