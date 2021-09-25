@@ -1,25 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../_interfaces/user';
-import { AccountService } from '../../_services/account.service';
+import { UserData } from '../../interfaces/UserData';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
-  
-  user: any;
-
-  constructor(private accountService: AccountService) {
-      this.user = this.accountService.userValue;
-      console.log('logged in :', this.user)
+export class HomeComponent implements OnInit {
+  name: string;
+  success: boolean;
+  constructor() {
   }
-  
-
-  logedToggle() {
-    this.accountService.userValue = !this.accountService.userValue;
-    this.user = this.accountService.userValue;
+  ngOnInit(): void {
+    this.name = sessionStorage.getItem('name');
+    this.success = Boolean(sessionStorage.getItem('success'));
   }
 }
 

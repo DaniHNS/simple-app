@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AccountService } from 'src/app/_services/account.service';
-
-//import { AccountService, AlertService } from '../_services';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        private account: AccountService,
         // private alertService: AlertService
     ) {
         // redirect to home if already logged in
@@ -33,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
 
@@ -53,15 +51,18 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.accountService.login(this.f.username.value, this.f.password.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //               // this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+        this.account.getUser(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    sessionStorage.setItem('name', data.user.username);
+                    sessionStorage.setItem('success', data.success);
+                    this.router.navigate([this.returnUrl]);
+                },
+                (error: any) => {
+                      console.error(error)
+                  
+                },
+                () => {this.loading = false});
     }
 }

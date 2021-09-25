@@ -1,20 +1,22 @@
 
 {
-    "profiles": [
+  "success": false,
+  "token": "123123123123",
+  "user": {
+    "username": "email@email.test"
+  },
+  "profiles": [
       {
         "id": "1",
-        "firstName": "Tom",
-        "lastName": "Cruise"
+        "name": "Tom Cruise"
       },
       {
         "id": "2",
-        "firstName": "Maria",
-        "lastName": "Sharapova"
+        "name": "Maria Sharapova"
       },
       {
         "id": "3",
-        "firstName": "James",
-        "lastName": "Bond"
+        "name": "James Bond"
       }
-    ]
+  ]
 }

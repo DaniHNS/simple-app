@@ -1,10 +1,12 @@
-<p>Welcome it seems you're Logged 
-    <span *ngIf="!user.loggedIn"> IN </span>
-    <span *ngIf="user.loggedIn"> Out </span>
-</p>
+<div *ngIf="!success">
+  <span>Please Go to Login</span>
+</div>
+<div *ngIf="success">
+  <span> Welcome back {{name}} &#9766;</span>
+</div>
 
 <!-- <span *ngIf="user.loggedIn">INside</span> -->
 
-<button *ngIf="!user.loggedIn" routerLinkActive="active" routerLink="/login">Please go to Login</button>
+<button *ngIf="!success" routerLinkActive="active" routerLink="/login">Please go to Login</button>
 
-<button *ngIf="user.loggedIn" routerLinkActive="active" routerLink="/accounts">Welcome Back </button>
+<button *ngIf="success" routerLinkActive="active" routerLink="/accounts">Welcome Back </button>

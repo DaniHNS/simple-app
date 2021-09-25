@@ -1,30 +1,23 @@
-import { Component } from '@angular/core';
-import { LoginService } from './_services/login.service';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { UserData } from './interfaces/userData';
+import { AccountService } from './services/account.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  private _jsonURL = 'api/users.json';
-
+export class AppComponent implements OnInit {
   title = 'simple-app';
-  
-  usersData;
 
-  constructor (private users: LoginService, private http: HttpClient) {
-      this.http.get<any>("api/users.json").subscribe((data)=> {
-        this.usersData = data;
-        console.log('Dani', this.usersData);
-      }
-   ) 
-}
+  success: boolean;
 
-public getJSON(): Observable<any> {
-  return this.http.get<any>(this._jsonURL);
-}
+  constructor() { }
+  ngOnInit(): void {
 
+    this.success = Boolean(sessionStorage.getItem('success'));
+  }
 }
